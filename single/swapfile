@@ -44,3 +44,4 @@ else
 	echo "INFO: adding the swap line to /etc/fstab."
 	echo "/swap none swap sw 0 0" >> /etc/fstab
 fi
+

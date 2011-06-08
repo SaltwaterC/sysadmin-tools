@@ -1,2 +1,17 @@
-The Ubuntu EC2 images drag some fat with them. This scripts strips down all the
-useless services in order to obtain a true JeOS as the basic building block.
+## Usage mode
+
+Download the script to your server machine. Make it executable and run. It is
+recommended to use it onto a fresh instance. Not recommended for machines that
+are in production. This script was tailored around the official Ubuntu Server
+EC2 images provided by Canonical.
+
+## Dependencies
+
+ * Ubuntu (won't work on Debian)
+ * upstart
+ * bash
+ * apt
+ * coreutils
+
+The Canonical provided Ubuntu images already have all the dependencies.
+
