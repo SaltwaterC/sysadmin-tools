@@ -1,9 +1,6 @@
 ## Usage mode
 
-Download the script to your server machine. Make it executable and run. It is
-recommended to use it onto a fresh instance. Not recommended for machines that
-are in production. This script was tailored around the official Ubuntu Server
-EC2 images provided by Canonical.
+Download the script to your server machine. Make it executable and run.
 
 ## Dependencies
 
@@ -13,5 +10,10 @@ EC2 images provided by Canonical.
  * apt
  * coreutils
 
-The Canonical provided Ubuntu images already have all the dependencies.
+## Notes
+
+The Canonical provided Ubuntu images already have all the dependencies. It is
+recommended to use it onto a fresh instance. Not recommended for machines that
+are in production. This script was tailored around the official Ubuntu Server
+EC2 images provided by Canonical.
 

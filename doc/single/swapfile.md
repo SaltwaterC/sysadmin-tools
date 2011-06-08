@@ -5,6 +5,7 @@ it with -h or --help for more details.
 
 ## Dependencies
 
+ * bash
  * coreutils
  * util-linux-ng (under Debian and derivatives)
  * grep
