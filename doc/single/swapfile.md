@@ -1,7 +1,6 @@
 ## Usage mode
 
-Download the script to your server machine. Make it executable and run. Invoke
-it with -h or --help for more details.
+Place the script to your server machine. Make it executable and run. Invoke it with -h or --help for more details.
 
 ## Dependencies
 
@@ -12,6 +11,5 @@ it with -h or --help for more details.
 
 ## Notes
 
-Developed and tested under Ubuntu. May work under other Linux flavors, but it is
-untested.
+Developed and tested under Ubuntu. May work under other Linux flavors, but it is untested.
 
