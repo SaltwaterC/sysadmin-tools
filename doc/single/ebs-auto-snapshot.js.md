@@ -28,18 +28,17 @@ Run it into the same directory as the ebs-auto-snapshot.js location. Enjoy.
 
 PS: you may want to use a IAM restricted user for this specific task. This is a IAM policy with the required privileges in order to run this script:
 
-{
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "EC2:DescribeVolumes",
-        "EC2:DescribeSnapshots",
-        "EC2:CreateSnapshot",
-        "EC2:DeleteSnapshot"
-      ],
-      "Resource": "*"
-    }
-  ]
-}
-
+>{
+>  "Statement": [
+>    {
+>      "Effect": "Allow",
+>      "Action": [
+>        "EC2:DescribeVolumes",
+>        "EC2:DescribeSnapshots",
+>        "EC2:CreateSnapshot",
+>        "EC2:DeleteSnapshot"
+>      ],
+>      "Resource": "*"
+>    }
+>  ]
+>}
