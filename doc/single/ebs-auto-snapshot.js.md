@@ -8,7 +8,7 @@ Add your AWS credentials (accessKeyId + secretAccessKey) at the top of the ebs-a
  * aws-lib (https://github.com/livelycode/aws-lib)
  * npm (you may manually install the xml2js and sax with enough git fu)
  * xml2js (aws-lib dependency, https://github.com/Leonidas-from-XIV/node-xml2js)
- * sax (aws-lib dependency, https://github.com/isaacs/sax-js)
+ * sax (xml2js dependency, https://github.com/isaacs/sax-js)
 
 ## Notes
 
