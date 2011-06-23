@@ -14,10 +14,11 @@ My every day sysadmin tools. Besides playing with cool technologies, the sysadmi
 ### Single file scripts:
 
  * swapfile - creates a swap partition inside a flat file. Useful for machines that don't have dedicated swap partitions. Useful for t1.micro EC2 instances, but not limited to.
- * ubuntu-ec2-jeos - the Ubuntu EC2 images drag some fat with them. This scripts strips down all the useless services in order to obtain a true JeOS (Just enough OS) as the basic building block.
- * ebs-auto-snapshot.js - takes care of the automatic snapshot of all the 'in-use' EC2 EBS volumes. Rotates the snapshots at a predefined value, so the number of snapshots per volume never goes over that limit.
 
 ### Suites:
 
  * svn-migrate - does the heavy lifting for migrating a bunch of SVN repositories from an old server to a new server.
+ * aws-tools - various tools for using with Amazon Web Services.
+  * ubuntu-ec2-jeos - the Ubuntu EC2 images drag some fat with them. This scripts strips down all the useless services in order to obtain a true JeOS (Just enough OS) as the basic building block.
+  * ebs-auto-snapshot.js - takes care of the automatic snapshot of all the 'in-use' EC2 EBS volumes. Rotates the snapshots at a predefined value, so the number of snapshots per volume never goes over that limit.
 
