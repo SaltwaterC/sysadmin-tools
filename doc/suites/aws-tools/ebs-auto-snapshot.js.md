@@ -2,13 +2,16 @@
 
 Add your AWS credentials (accessKeyId + secretAccessKey) at the top of the ebs-auto-snapshot.js script, into the settings object. Place the script to your server machine. Install the dependencies. Add it to the crontab.
 
+You may edit the regions where it operates (by default it operates only in us-east-1). You may change the number of snapshots to keep per volume. By default it keeps 30 snapshots per volume.
+
 ## Dependencies
 
  * node.js (developed under v0.4.8)
- * aws-lib (https://github.com/livelycode/aws-lib)
- * npm (you may manually install the xml2js and sax with enough git fu)
- * xml2js (aws-lib dependency, https://github.com/Leonidas-from-XIV/node-xml2js)
+ * aws-js (https://github.com/SaltwaterC/aws-js)
+ * xml2js (aws-js dependency, my fork that includes a specific patch, https://github.com/SaltwaterC/node-xml2js)
  * sax (xml2js dependency, https://github.com/isaacs/sax-js)
+
+The dependencies are added as git submodules into the node_modules directory that you can find next to ebs-auto-snapshot.js. You may want to install this via git since 2/3 of those dependencies aren't publish to the npm registry.
 
 ## Notes
 
@@ -18,11 +21,11 @@ This script is intended to be used as a cron job. The info messages go to STDOUT
 
 Runs every day at 12 AM while it sends all the info messages to the bit bucket. The errors go to your email if you configured the crontab to have a proper email address (such as the MAILTO environment variable).
 
-Since aws-lib kinda blows at error reporting, or should I say, it has *NO* error reporting, this script wasn't tested with a faulty EC2 API. Anyway, your mileage may vary. I have plans to roll out my own aws-lib proper implementation, but till then, this script may work as expected.
+For this new version, I rolled out my own aws-js implementation that has error reporting, but you may want to keep an eye onto the log messages.
 
-Since the aws-lib isn't published to the npm registry, this one liner fixes all the dependecy issues:
+This one liner fixes all the dependecy issues, if you don't want to clone my sysadmin-tools repository:
 
-> mkdir -p node_modules && cd node_modules && git clone https://github.com/livelycode/aws-lib.git && cd aws-lib && npm install
+> mkdir -p node_modules && cd node_modules && git clone https://github.com/SaltwaterC/aws-js && git clone https://github.com/SaltwaterC/node-xml2js && git clone https://github.com/isaacs/sax-js
 
 Run it into the same directory as the ebs-auto-snapshot.js location. Enjoy.
 
