@@ -43,11 +43,10 @@ var ebs = {
 	
 	process: function (instanceId) {
 		rds.call('DescribeDBSnapshots', {DBInstanceIdentifier: instanceId}, function (error, response)  {
-			var delay = false;
 			if ( ! error) {
 				if (response.DescribeDBSnapshotsResult) {
 					if (response.DescribeDBSnapshotsResult.DBSnapshots.DBSnapshot) {
-						var i, timestamp, count = 0, snaps = {};
+						var i, timestamp, count = 0, snaps = {}, delay = false;
 						var snapshots = response.DescribeDBSnapshotsResult.DBSnapshots.DBSnapshot;
 						for (i in snapshots) {
 							if (snapshots[i].Status == 'available') {
@@ -75,21 +74,23 @@ var ebs = {
 						if (count == settings.rotate) {
 							delay = true;
 						}
+						
+						if ( ! delay) {
+							ebs.take_snap(instanceId);
+						} else {
+							/**
+							 * Due to API limitation, tries to avoid SnapshotQuotaExceeded errors
+							 */
+							setTimeout(function () {
+								ebs.take_snap(instanceId);
+							}, 60000);
+						}
 					}
 				} else {
 					console.error('ERROR: no snapshots returned.');
 				}
 			} else {
 				console.error(error.message);
-			}
-			
-			if ( ! delay) {
-				ebs.take_snap(instanceId);
-			} else {
-				// Due to API limitation, tries to avoid SnapshotQuotaExceeded
-				setTimeout(function () {
-					ebs.take_snap(instanceId);
-				}, 60000);
 			}
 		});
 	},
