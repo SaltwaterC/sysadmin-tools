@@ -11,7 +11,7 @@ var settings = {
 	/**
 	 * Number of snapshots per RDS instance to keep
 	 */
-	rotate: 30
+	rotate: 25
 };
 
 var rds = require('aws-js').rds;
