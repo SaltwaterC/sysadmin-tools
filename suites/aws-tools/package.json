@@ -1,7 +1,8 @@
 {
 	"name": "aws-tools",
+	"version": "0.1.0",
 	"dependencies": {
-		"libxmljs": ">=0.4.x",
+		"libxmljs": ">=0.x",
 		"libxml-to-js": ">=0.1.x",
 		"aws2js": ">=0.2.x"
 	},
