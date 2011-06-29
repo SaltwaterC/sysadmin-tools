@@ -1,0 +1,16 @@
+{
+	"name": "aws-tools",
+	"dependencies": {
+		"libxmljs": ">=0.x",
+		"libxml-to-js": ">=0.1.x",
+		"aws2js": ">=0.2.x"
+	},
+	"engines": {
+		"node": ">=0.4.x"
+	},
+	"homepage": "https://github.com/SaltwaterC/sysadmin-tools",
+	"author": {
+		"name": "Stefan Rusu",
+		"url": "http://www.saltwaterc.eu/"
+	}
+}

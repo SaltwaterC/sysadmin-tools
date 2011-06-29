@@ -1,9 +1,0 @@
-[submodule "suites/aws-tools/node_modules/aws-js"]
-	path = suites/aws-tools/node_modules/aws-js
-	url = git://github.com/SaltwaterC/aws-js.git
-[submodule "suites/aws-tools/node_modules/xml2js"]
-	path = suites/aws-tools/node_modules/xml2js
-	url = git://github.com/SaltwaterC/node-xml2js.git
-[submodule "suites/aws-tools/node_modules/sax"]
-	path = suites/aws-tools/node_modules/sax
-	url = git://github.com/isaacs/sax-js.git
