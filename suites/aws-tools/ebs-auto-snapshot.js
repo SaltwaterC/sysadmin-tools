@@ -14,7 +14,7 @@ var settings = {
 	rotate: 30
 };
 
-var ec2 = require('aws-js').ec2;
+var ec2 = require('aws2js').ec2;
 
 ec2.setCredentials(settings.accessKeyId, settings.secretAccessKey);
 

@@ -14,7 +14,7 @@ var settings = {
 	rotate: 25
 };
 
-var rds = require('aws-js').rds;
+var rds = require('aws2js').rds;
 
 rds.setCredentials(settings.accessKeyId, settings.secretAccessKey);
 
