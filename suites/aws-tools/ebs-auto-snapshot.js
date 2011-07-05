@@ -39,6 +39,7 @@ var ebs = {
 				}
 			} else {
 				console.error(error.message);
+				console.error(result);
 			}
 		});
 	},
@@ -70,6 +71,7 @@ var ebs = {
 				}
 			} else {
 				console.error(error.message);
+				console.error(result);
 			}
 			
 			ebs.take_snap(volumeId);
@@ -85,6 +87,7 @@ var ebs = {
 				}
 			} else {
 				console.error(error.message);
+				console.error(result);
 			}
 		});
 	},
@@ -102,6 +105,7 @@ var ebs = {
 				}
 			} else {
 				console.error(error.message);
+				console.error(result);
 			}
 		});
 	}
