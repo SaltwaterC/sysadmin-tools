@@ -1,6 +1,6 @@
 ## Usage mode
 
-Add your AWS credentials (accessKeyId + secretAccessKey) at the top of the ebs-auto-snapshot.js script, into the settings object. Place the script to your server machine. Install the dependencies. Add it to the crontab.
+Add your AWS credentials (accessKeyId + secretAccessKey) into the ebs-settings.js script. Place the scripts to your server machine. Install the dependencies. Add it to the crontab.
 
 You may edit the regions where it operates (by default it operates only in us-east-1). You may change the number of snapshots to keep per volume. By default it keeps 30 snapshots per volume.
 
@@ -32,6 +32,7 @@ You may want to use a IAM restricted user for this specific task. This is a IAM 
     {
       "Effect": "Allow",
       "Action": [
+        "EC2:DescribeImages",
         "EC2:DescribeVolumes",
         "EC2:DescribeSnapshots",
         "EC2:CreateSnapshot",

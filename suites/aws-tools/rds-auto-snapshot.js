@@ -1,20 +1,5 @@
-var settings = {
-	/**
-	 * Your AWS credentials
-	 */
-	accessKeyId: '',
-	secretAccessKey: '',
-	/**
-	 * Place here the RDS regions where to operate
-	 */
-	regions: ['us-east-1'],
-	/**
-	 * Number of snapshots per RDS instance to keep
-	 */
-	rotate: 25
-};
-
 var rds = require('aws2js').rds;
+var settings = require('./rds-settings.js');
 
 rds.setCredentials(settings.accessKeyId, settings.secretAccessKey);
 
