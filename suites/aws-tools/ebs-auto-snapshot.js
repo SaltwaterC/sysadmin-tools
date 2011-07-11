@@ -64,11 +64,12 @@ var ebs = {
 								var snapshotId = result.snapshotSet.item[i].snapshotId;
 								if (snapshotId in blacklist) {
 									console.log('Skipping ' + snapshotId + ' as it is in use by AMI');
+									counter = counter - 2;
 								} else {
 									ebs.delete_snap(snapshotId);
 									counter--;
 								}
-								if (counter == 0) {
+								if (counter <= 0) {
 									break;
 								}
 							}
