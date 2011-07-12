@@ -1,4 +1,4 @@
-var rds = require('aws2js').rds;
+var rds = require('aws2js').load('rds');
 var settings = require('./rds-settings.js');
 
 rds.setCredentials(settings.accessKeyId, settings.secretAccessKey);

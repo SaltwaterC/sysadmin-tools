@@ -1,4 +1,4 @@
-var ec2 = require('aws2js').ec2;
+var ec2 = require('aws2js').load('ec2');
 var settings = require('./ebs-settings.js');
 
 ec2.setCredentials(settings.accessKeyId, settings.secretAccessKey);
