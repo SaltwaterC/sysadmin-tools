@@ -8,14 +8,13 @@ var ebs = {
 	fetch: function (region) {
 		console.log('Taking snapshots for region: ' + region);
 		rds.setRegion(region);
-		
 		rds.call('DescribeDBInstances', {}, function (error, response) {
 			if ( ! error) {
 				if (response.DescribeDBInstancesResult) {
 					for (var i in response.DescribeDBInstancesResult.DBInstances) {
 						var instance = response.DescribeDBInstancesResult.DBInstances[i];
 						console.log('Sending to process instance: ' + instance.DBInstanceIdentifier);
-						ebs.process(instance.DBInstanceIdentifier);
+						ebs.process(region, instance.DBInstanceIdentifier);
 					}
 				} else {
 					console.error('ERROR: no instances returned.');
@@ -26,7 +25,8 @@ var ebs = {
 		});
 	},
 	
-	process: function (instanceId) {
+	process: function (region, instanceId) {
+		rds.setRegion(region);
 		rds.call('DescribeDBSnapshots', {DBInstanceIdentifier: instanceId}, function (error, response)  {
 			if ( ! error) {
 				if (response.DescribeDBSnapshotsResult) {
@@ -49,7 +49,7 @@ var ebs = {
 						if (count >= settings.rotate) {
 							var counter = count - settings.rotate + 1;
 							for (var i in snaps) {
-								ebs.delete_snap(snaps[i]);
+								ebs.delete_snap(region, snaps[i]);
 								counter--;
 								if (counter == 0) {
 									break;
@@ -61,13 +61,13 @@ var ebs = {
 						}
 						
 						if ( ! delay) {
-							ebs.take_snap(instanceId);
+							ebs.take_snap(region, instanceId);
 						} else {
 							/**
 							 * Due to API limitation, tries to avoid SnapshotQuotaExceeded errors
 							 */
 							setTimeout(function () {
-								ebs.take_snap(instanceId);
+								ebs.take_snap(region, instanceId);
 							}, 60000);
 						}
 					}
@@ -95,8 +95,9 @@ var ebs = {
 		return sorted;
 	},
 	
-	delete_snap: function (snapshotId) {
+	delete_snap: function (region, snapshotId) {
 		console.log('Delete snapshot: ' + snapshotId);
+		rds.setRegion(region);
 		rds.call('DeleteDBSnapshot', {DBSnapshotIdentifier: snapshotId}, function (error, result) {
 			if (error) {
 				console.error(error.message);
@@ -104,13 +105,14 @@ var ebs = {
 		});
 	},
 	
-	take_snap: function (instanceId) {
+	take_snap: function (region, instanceId) {
 		var snapshotId = 'rds-auto-snapshot-js-' + new Date().getTime().toString(16);
 		console.log('Take snapshot for instance-id: ' + instanceId + '; using snapshot-id: ' + snapshotId);
 		var query = {
 			DBInstanceIdentifier: instanceId,
 			DBSnapshotIdentifier: snapshotId
 		};
+		rds.setRegion(region);
 		rds.call('CreateDBSnapshot', query, function (error, result) {
 			if (error) {
 				console.error(error.message);

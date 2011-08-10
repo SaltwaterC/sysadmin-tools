@@ -7,9 +7,8 @@ var ebs = {
 	
 	fetch: function (region) {
 		console.log('Taking snapshots for region: ' + region);
-		ec2.setRegion(region);
-		
 		console.log('Populating the blacklist with snapshots in use by AMIs');
+		ec2.setRegion(region);
 		ec2.call('DescribeImages', {'Owner.1': 'self'}, function (error, result) {
 			if ( ! error) {
 				try {
@@ -18,6 +17,7 @@ var ebs = {
 						blacklist[result.imagesSet.item[i].blockDeviceMapping.item.ebs.snapshotId] = null;
 					}
 					
+					ec2.setRegion(region);
 					ec2.call('DescribeVolumes', {}, function (error, result) {
 						if ( ! error) {
 							if (result.volumeSet) {
@@ -25,7 +25,7 @@ var ebs = {
 									var volume = result.volumeSet.item[i];
 									if (volume.status === 'in-use') {
 										console.log('Sending to process: ' + volume.volumeId);
-										ebs.process(volume.volumeId, blacklist);
+										ebs.process(region, volume.volumeId, blacklist);
 									}
 								}
 							} else {
@@ -47,13 +47,14 @@ var ebs = {
 		});
 	},
 	
-	process: function (volumeId, blacklist) {
+	process: function (region, volumeId, blacklist) {
 		var query = {
 			'Filter.1.Name': 'volume-id',
 			'Filter.1.Value.1': volumeId,
 			'Filter.2.Name': 'status',
 			'Filter.2.Value.1': 'completed'
 		};
+		ec2.setRegion(region);
 		ec2.call('DescribeSnapshots', query, function (error, result) {
 			if ( ! error) {
 				if (result.snapshotSet) {
@@ -66,7 +67,7 @@ var ebs = {
 									console.log('Skipping ' + snapshotId + ' as it is in use by AMI');
 									counter = counter - 2;
 								} else {
-									ebs.delete_snap(snapshotId);
+									ebs.delete_snap(region, snapshotId);
 									counter--;
 								}
 								if (counter <= 0) {
@@ -83,12 +84,13 @@ var ebs = {
 				console.error(JSON.stringify(result));
 			}
 			
-			ebs.take_snap(volumeId);
+			ebs.take_snap(region, volumeId);
 		});
 	},
 	
-	delete_snap: function (snapshotId) {
+	delete_snap: function (region, snapshotId) {
 		console.log('Delete snapshot: ' + snapshotId);
+		ec2.setRegion(region);
 		ec2.call('DeleteSnapshot', {'SnapshotId': snapshotId}, function (error, result) {
 			if ( ! error) {
 				if (result['return'] && result['return'] != 'true') {
@@ -101,12 +103,13 @@ var ebs = {
 		});
 	},
 	
-	take_snap: function (volumeId) {
+	take_snap: function (region, volumeId) {
 		console.log('Take snapshot for volume-id: ' + volumeId);
 		var query = {
 			VolumeId: volumeId,
 			Description: 'ebs-auto-snapshot.js for ' + volumeId
 		};
+		ec2.setRegion(region);
 		ec2.call('CreateSnapshot', query, function (error, result) {
 			if ( ! error) {
 				if ( ! result.snapshotId) {
