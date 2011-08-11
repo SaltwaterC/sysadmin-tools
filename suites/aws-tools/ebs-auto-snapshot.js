@@ -33,16 +33,16 @@ var ebs = {
 							}
 						} else {
 							console.error(error.message);
-							console.error(JSON.stringify(result));
+							console.error(JSON.stringify(error.document));
 						}
 					});
 				} catch (e) {
 					console.error(e.message);
-					console.error(JSON.stringify(result));
+					console.error(JSON.stringify(error.document));
 				}
 			} else {
 				console.error(error.message);
-				console.error(JSON.stringify(result));
+				console.error(JSON.stringify(error.document));
 			}
 		});
 	},
@@ -81,7 +81,7 @@ var ebs = {
 				}
 			} else {
 				console.error(error.message);
-				console.error(JSON.stringify(result));
+				console.error(JSON.stringify(error.document));
 			}
 			
 			ebs.take_snap(region, volumeId);
@@ -98,7 +98,7 @@ var ebs = {
 				}
 			} else {
 				console.error(error.message);
-				console.error(JSON.stringify(result));
+				console.error(JSON.stringify(error.document));
 			}
 		});
 	},
@@ -117,7 +117,7 @@ var ebs = {
 				}
 			} else {
 				console.error(error.message);
-				console.error(JSON.stringify(result));
+				console.error(JSON.stringify(error.document));
 			}
 		});
 	}
