@@ -3,7 +3,7 @@
 	"version": "0.0.0",
 	"dependencies": {
 		"libxmljs": ">=0.x",
-		"libxml-to-js": ">=0.3.0",
+		"libxml-to-js": ">=0.3.3",
 		"aws2js": ">=0.4.1"
 	},
 	"engines": {
