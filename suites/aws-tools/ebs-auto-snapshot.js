@@ -21,8 +21,16 @@ var ebs = {
 					ec2.call('DescribeVolumes', {}, function (error, result) {
 						if ( ! error) {
 							if (result.volumeSet) {
-								for (var i in result.volumeSet.item) {
-									var volume = result.volumeSet.item[i];
+								if (result.volumeSet.item[0]) { // multiple volumes
+									for (var i in result.volumeSet.item) {
+										var volume = result.volumeSet.item[i];
+										if (volume.status === 'in-use') {
+											console.log('Sending to process: ' + volume.volumeId);
+											ebs.process(region, volume.volumeId, blacklist);
+										}
+									}
+								} else { // single volume
+									var volume = result.volumeSet.item;
 									if (volume.status === 'in-use') {
 										console.log('Sending to process: ' + volume.volumeId);
 										ebs.process(region, volume.volumeId, blacklist);
