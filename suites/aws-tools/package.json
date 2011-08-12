@@ -4,7 +4,7 @@
 	"dependencies": {
 		"libxmljs": ">=0.x",
 		"libxml-to-js": ">=0.3.0",
-		"aws2js": ">=0.4.0"
+		"aws2js": ">=0.4.1"
 	},
 	"engines": {
 		"node": ">=0.4.10"
