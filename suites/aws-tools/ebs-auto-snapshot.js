@@ -9,7 +9,7 @@ var ebs = {
 		console.log('Taking snapshots for region: ' + region);
 		console.log('Populating the blacklist with snapshots in use by AMIs');
 		ec2.setRegion(region);
-		ec2.call('DescribeImages', {'Owner.1': 'self'}, function (error, result) {
+		ec2.request('DescribeImages', {'Owner.1': 'self'}, function (error, result) {
 			if ( ! error) {
 				try {
 					var blacklist = {};
@@ -18,7 +18,7 @@ var ebs = {
 					}
 					
 					ec2.setRegion(region);
-					ec2.call('DescribeVolumes', {}, function (error, result) {
+					ec2.request('DescribeVolumes', {}, function (error, result) {
 						if ( ! error) {
 							if (result.volumeSet) {
 								if (result.volumeSet.item[0]) { // multiple volumes
@@ -63,7 +63,7 @@ var ebs = {
 			'Filter.2.Value.1': 'completed'
 		};
 		ec2.setRegion(region);
-		ec2.call('DescribeSnapshots', query, function (error, result) {
+		ec2.request('DescribeSnapshots', query, function (error, result) {
 			if ( ! error) {
 				if (result.snapshotSet) {
 					if (result.snapshotSet.item) {
@@ -99,7 +99,7 @@ var ebs = {
 	delete_snap: function (region, snapshotId) {
 		console.log('Delete snapshot: ' + snapshotId);
 		ec2.setRegion(region);
-		ec2.call('DeleteSnapshot', {'SnapshotId': snapshotId}, function (error, result) {
+		ec2.request('DeleteSnapshot', {'SnapshotId': snapshotId}, function (error, result) {
 			if ( ! error) {
 				if (result['return'] && result['return'] != 'true') {
 					console.error('ERROR: failed to delete snapshot ' + snapshotId);
@@ -118,7 +118,7 @@ var ebs = {
 			Description: 'ebs-auto-snapshot.js for ' + volumeId
 		};
 		ec2.setRegion(region);
-		ec2.call('CreateSnapshot', query, function (error, result) {
+		ec2.request('CreateSnapshot', query, function (error, result) {
 			if ( ! error) {
 				if ( ! result.snapshotId) {
 					console.error('ERROR: unable to create a snapshot for ' + volumeId);

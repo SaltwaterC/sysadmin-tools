@@ -8,7 +8,7 @@ var ebs = {
 	fetch: function (region) {
 		console.log('Taking snapshots for region: ' + region);
 		rds.setRegion(region);
-		rds.call('DescribeDBInstances', {}, function (error, response) {
+		rds.request('DescribeDBInstances', {}, function (error, response) {
 			if ( ! error) {
 				if (response.DescribeDBInstancesResult) {
 					for (var i in response.DescribeDBInstancesResult.DBInstances) {
@@ -27,7 +27,7 @@ var ebs = {
 	
 	process: function (region, instanceId) {
 		rds.setRegion(region);
-		rds.call('DescribeDBSnapshots', {DBInstanceIdentifier: instanceId}, function (error, response)  {
+		rds.request('DescribeDBSnapshots', {DBInstanceIdentifier: instanceId}, function (error, response)  {
 			if ( ! error) {
 				if (response.DescribeDBSnapshotsResult) {
 					if (response.DescribeDBSnapshotsResult.DBSnapshots.DBSnapshot) {
@@ -98,7 +98,7 @@ var ebs = {
 	delete_snap: function (region, snapshotId) {
 		console.log('Delete snapshot: ' + snapshotId);
 		rds.setRegion(region);
-		rds.call('DeleteDBSnapshot', {DBSnapshotIdentifier: snapshotId}, function (error, result) {
+		rds.request('DeleteDBSnapshot', {DBSnapshotIdentifier: snapshotId}, function (error, result) {
 			if (error) {
 				console.error(error.message);
 			}
@@ -113,7 +113,7 @@ var ebs = {
 			DBSnapshotIdentifier: snapshotId
 		};
 		rds.setRegion(region);
-		rds.call('CreateDBSnapshot', query, function (error, result) {
+		rds.request('CreateDBSnapshot', query, function (error, result) {
 			if (error) {
 				console.error(error.message);
 			}
