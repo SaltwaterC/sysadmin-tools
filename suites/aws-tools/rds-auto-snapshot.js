@@ -8,13 +8,17 @@ var ebs = {
 	fetch: function (region) {
 		console.log('Taking snapshots for region: ' + region);
 		rds.setRegion(region);
-		rds.request('DescribeDBInstances', {}, function (error, response) {
+		rds.request('DescribeDBInstances', function (error, response) {
 			if ( ! error) {
 				if (response.DescribeDBInstancesResult) {
-					for (var i in response.DescribeDBInstancesResult.DBInstances) {
-						var instance = response.DescribeDBInstancesResult.DBInstances[i];
-						console.log('Sending to process instance: ' + instance.DBInstanceIdentifier);
-						ebs.process(region, instance.DBInstanceIdentifier);
+					for (var i in response.DescribeDBInstancesResult.DBInstances.DBInstance) {
+						var instance = response.DescribeDBInstancesResult.DBInstances.DBInstance[i];
+						if ( ! (instance.DBInstanceIdentifier in settings.exclude)) {
+							console.log('Sending to process instance: %s.', instance.DBInstanceIdentifier);
+							ebs.process(region, instance.DBInstanceIdentifier);
+						} else {
+							console.log('Excluding from processing: %s.', instance.DBInstanceIdentifier);
+						}
 					}
 				} else {
 					console.error('ERROR: no instances returned.');
@@ -70,6 +74,8 @@ var ebs = {
 								ebs.take_snap(region, instanceId);
 							}, 60000);
 						}
+					} else {
+						ebs.take_snap(region, instanceId);
 					}
 				} else {
 					console.error('ERROR: no snapshots returned.');
