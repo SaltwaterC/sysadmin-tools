@@ -1,4 +1,4 @@
-## About
+## About ![still maintained](http://stillmaintained.com/SaltwaterC/sysadmin-tools.png)
 
 My every day sysadmin tools. Besides playing with cool technologies, the sysadmin work has a fair share of repetitive work. The rule of thumb is: if you have to make it twice, write a script. Therefore, I got a pretty large collection that I'm going to release after some cleaning up, documenting the essential parts, etc.
 
