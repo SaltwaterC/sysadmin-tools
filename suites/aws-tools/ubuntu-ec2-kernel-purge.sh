@@ -2,7 +2,18 @@
 
 # purge the linux-image-virtual obsolete packages
 version=$(ls /boot/ | grep vmlinuz | grep generic | cut -d"-" -f2 | sort -u)
+
+# look for the generic packages under 32-bit
 declare -a installed=($(ls /boot/ | grep vmlinuz | grep generic | cut -d"-" -f3 | sort -u))
+count=${#installed[@]}
+
+for ((i = 0; i < count - 1; i++))
+do
+	apt-get -y autoremove --purge linux-image-$version-${installed[$i]}-virtual
+done
+
+# look for the server packages under 64-bit
+declare -a installed=($(ls /boot/ | grep vmlinuz | grep server | cut -d"-" -f3 | sort -u))
 count=${#installed[@]}
 
 for ((i = 0; i < count - 1; i++))
