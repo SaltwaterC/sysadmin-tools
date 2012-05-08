@@ -24,7 +24,7 @@ var ebs = {
 					console.error('ERROR: no instances returned.');
 				}
 			} else {
-				console.error(error.message);
+				console.error(error);
 			}
 		});
 	},
@@ -81,7 +81,7 @@ var ebs = {
 					console.error('ERROR: no snapshots returned.');
 				}
 			} else {
-				console.error(error.message);
+				console.error(error);
 			}
 		});
 	},
@@ -106,7 +106,7 @@ var ebs = {
 		rds.setRegion(region);
 		rds.request('DeleteDBSnapshot', {DBSnapshotIdentifier: snapshotId}, function (error, result) {
 			if (error) {
-				console.error(error.message);
+				console.error(error);
 			}
 		});
 	},
@@ -121,7 +121,7 @@ var ebs = {
 		rds.setRegion(region);
 		rds.request('CreateDBSnapshot', query, function (error, result) {
 			if (error) {
-				console.error(error.message);
+				console.error(error);
 			}
 		});
 	}
