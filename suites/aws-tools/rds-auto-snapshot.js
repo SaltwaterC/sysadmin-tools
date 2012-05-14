@@ -38,7 +38,7 @@ var ebs = {
 						var i, timestamp, count = 0, snaps = {}, delay = false;
 						var snapshots = response.DescribeDBSnapshotsResult.DBSnapshots.DBSnapshot;
 						for (i in snapshots) {
-							if (snapshots[i].Status == 'available') {
+							if (snapshots[i].Status == 'available' && snapshots[i].SnapshotType == 'manual') {
 								timestamp = new Date(snapshots[i].SnapshotCreateTime).getTime();
 								snaps[timestamp] = snapshots[i].DBSnapshotIdentifier;
 								count++;
