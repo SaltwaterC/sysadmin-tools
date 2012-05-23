@@ -1,10 +1,8 @@
-var rds = require('aws2js').load('rds');
 var settings = require('./rds-settings.js');
 
-rds.setCredentials(settings.accessKeyId, settings.secretAccessKey);
+var rds = require('aws2js').load('rds', settings.accessKeyId, settings.secretAccessKey);
 
-var ebs = {
-	
+var ebs = {	
 	fetch: function (region) {
 		console.log('Taking snapshots for region: ' + region);
 		rds.setRegion(region);
@@ -125,7 +123,6 @@ var ebs = {
 			}
 		});
 	}
-	
 };
 
 for (var i in settings.regions) {

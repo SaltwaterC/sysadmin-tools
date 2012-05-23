@@ -1,10 +1,8 @@
-var ec2 = require('aws2js').load('ec2');
 var settings = require('./ebs-settings.js');
 
-ec2.setCredentials(settings.accessKeyId, settings.secretAccessKey);
+var ec2 = require('aws2js').load('ec2', settings.accessKeyId, settings.secretAccessKey);
 
 var ebs = {
-	
 	fetch: function (region) {
 		console.log('Taking snapshots for region: ' + region);
 		console.log('Populating the blacklist with snapshots in use by AMIs');
@@ -18,7 +16,7 @@ var ebs = {
 					}
 					
 					ec2.setRegion(region);
-					ec2.request('DescribeVolumes', {}, function (error, result) {
+					ec2.request('DescribeVolumes', function (error, result) {
 						if ( ! error) {
 							if (result.volumeSet) {
 								if (result.volumeSet.item[0]) { // multiple volumes
@@ -129,7 +127,6 @@ var ebs = {
 			}
 		});
 	}
-	
 };
 
 for (var i in settings.regions) {
