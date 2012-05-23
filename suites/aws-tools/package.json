@@ -2,9 +2,7 @@
 	"name": "aws-tools",
 	"version": "0.0.0",
 	"dependencies": {
-		"libxmljs": ">=0.x",
-		"libxml-to-js": ">=0.3.9",
-		"aws2js": ">=0.6.0"
+		"aws2js": ">=0.6.15"
 	},
 	"engines": {
 		"node": ">=0.4.10"
