@@ -85,7 +85,7 @@ var fetchSnapshots = function (region, snapBlacklist, volBlacklist) {
 					volCount++;
 				}
 				
-				console.log('Blacklisted: %d snapshots, and %d volumes.', snapCount, volCount);
+				console.log('Blacklisted on %s: %d snapshots, and %d volumes.', region, snapCount, volCount);
 				
 				for (var i in snapshots) {
 					var snapshot = snapshots[i];
