@@ -2,8 +2,8 @@ module.exports = {
 	/**
 	 * Your AWS credentials
 	 */
-	accessKeyId: '',
-	secretAccessKey: '',
+	accessKeyId: process.env.AWS_ACCEESS_KEY_ID,
+	secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 	/**
 	 * Place here the RDS regions where to operate
 	 */
