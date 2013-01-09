@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var settings = require('./rds-settings.js');
 
 var rds = require('aws2js').load('rds', settings.accessKeyId, settings.secretAccessKey);

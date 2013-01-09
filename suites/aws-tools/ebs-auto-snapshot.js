@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var settings = require('./ebs-settings.js');
 
 var ec2 = require('aws2js').load('ec2', settings.accessKeyId, settings.secretAccessKey);
