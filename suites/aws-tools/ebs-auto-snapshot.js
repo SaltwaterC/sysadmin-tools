@@ -14,9 +14,26 @@ var ebs = {
 			if ( ! error) {
 				try {
 					var blacklist = {};
-					for (var i in result.imagesSet.item) {
-						if (result.imagesSet.item[i].blockDeviceMapping.item.ebs) {
-							blacklist[result.imagesSet.item[i].blockDeviceMapping.item.ebs.snapshotId] = null;
+					var images = result.imagesSet.item;
+					
+					if ( ! (images instanceof Array)) {
+						images = [images];
+					}
+					
+					for (var i in images) {
+						var image = images[i];
+						var devices = image.blockDeviceMapping.item;
+						
+						if ( ! (devices instanceof Array)) {
+							devices = [devices];
+						}
+						
+						for (var j in devices) {
+							var device = devices[j];
+							if (device.ebs && device.ebs.snapshotId) {
+								blacklist[device.ebs.snapshotId] = null;
+								console.log("Blacklisting %s as is registered to %s", device.ebs.snapshotId, image.imageId);
+							}
 						}
 					}
 					
