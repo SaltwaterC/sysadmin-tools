@@ -3,6 +3,7 @@
 var settings = require('./ebs-settings.js');
 
 var ec2 = require('aws2js').load('ec2', settings.accessKeyId, settings.secretAccessKey);
+ec2.setApiVersion('2012-12-01');
 
 var ebs = {
 	fetch: function (region) {
