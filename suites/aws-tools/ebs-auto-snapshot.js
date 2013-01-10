@@ -14,7 +14,9 @@ var ebs = {
 				try {
 					var blacklist = {};
 					for (var i in result.imagesSet.item) {
-						blacklist[result.imagesSet.item[i].blockDeviceMapping.item.ebs.snapshotId] = null;
+						if (result.imagesSet.item[i].blockDeviceMapping.item.ebs) {
+							blacklist[result.imagesSet.item[i].blockDeviceMapping.item.ebs.snapshotId] = null;
+						}
 					}
 					
 					ec2.setRegion(region);
