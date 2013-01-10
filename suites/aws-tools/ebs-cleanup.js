@@ -17,15 +17,18 @@ var fetchAmiSnapshots = function (region) {
 				
 				for (var i in images) {
 					var image = images[i];
-					var snapshots = image.blockDeviceMapping.item;
+					var devices = image.blockDeviceMapping.item;
 					
-					if ( ! (snapshots instanceof Array)) {
-						snapshots = [snapshots];
+					if ( ! (devices instanceof Array)) {
+						devices = [devices];
 					}
 					
-					for (var j in snapshots) {
-						var snapshot = snapshots[j].ebs.snapshotId;
-						snapBlacklist[snapshot] = null;
+					for (var j in devices) {
+						var device = devices[j];
+						if (device.ebs && device.ebs.snapshotId) {
+							snapBlacklist[device.ebs.snapshotId] = null;
+							console.log("Blacklisting %s as is registered to %s", device.ebs.snapshotId, image.imageId);
+						}
 					}
 				}
 				
@@ -34,7 +37,8 @@ var fetchAmiSnapshots = function (region) {
 				fetchVolumes(region, {});
 			}
 		} else {
-			console.error(err);
+			console.error(err.message);
+			console.error(JSON.stringify(err.document));
 		}
 	});
 };
@@ -61,7 +65,8 @@ var fetchVolumes = function (region, snapBlacklist) {
 				console.error(new Error('Unable to fetch the volume blacklist.'));
 			}
 		} else {
-			console.error(err);
+			console.error(err.message);
+			console.error(JSON.stringify(err.document));
 		}
 	});
 };
@@ -100,7 +105,8 @@ var fetchSnapshots = function (region, snapBlacklist, volBlacklist) {
 				console.error(new Error('Failed to fetch the existing snapshots.'));
 			}
 		} else {
-			console.error(err);
+			console.error(err.message);
+			console.error(JSON.stringify(err.document));
 		}
 	});
 };
@@ -116,7 +122,8 @@ var deleteSnapshot = function (region, snapshotId, idx) {
 					console.log('Unable to delete: %s', snapshotId);
 				}
 			} else {
-				console.error(err);
+				console.error(err.message);
+				console.error(JSON.stringify(err.document));
 			}
 		});
 	}, idx * 1000);
