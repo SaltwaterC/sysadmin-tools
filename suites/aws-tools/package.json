@@ -11,5 +11,6 @@
 	"author": {
 		"name": "Stefan Rusu",
 		"url": "http://www.saltwaterc.eu/"
-	}
+	},
+	"private": true
 }
