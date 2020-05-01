@@ -1,16 +1,22 @@
 {
-	"name": "aws-tools",
-	"version": "0.0.0",
-	"dependencies": {
-		"aws2js": ">=0.6.15"
-	},
-	"engines": {
-		"node": ">=0.4.10"
-	},
-	"homepage": "https://github.com/SaltwaterC/sysadmin-tools",
-	"author": {
-		"name": "Stefan Rusu",
-		"url": "http://www.saltwaterc.eu/"
-	},
-	"private": true
+  "name": "aws-tools",
+  "version": "0.0.0",
+  "dependencies": {
+    "aws2js": ">=0.6.15",
+    "snyk": "^1.316.1"
+  },
+  "engines": {
+    "node": ">=0.4.10"
+  },
+  "homepage": "https://github.com/SaltwaterC/sysadmin-tools",
+  "author": {
+    "name": "Stefan Rusu",
+    "url": "http://www.saltwaterc.eu/"
+  },
+  "private": true,
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
